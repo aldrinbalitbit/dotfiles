@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 red='\x1B[0;31m'
 green='\x1B[0;32m'
 blue='\x1B[0;34m'
@@ -70,17 +70,17 @@ _setup () {
 
 _chroot () {
 	mkdir /mnt/{sources,scripts}
-	cp chroot/*.sh /mnt/scripts/
-	chroot /mnt /scripts/setup.sh
+	cp chroot/stage1.sh /mnt/scripts/chroot-stage1.sh
+	chroot /mnt /scripts/chroot-stage1.sh
 }
 
 _full_install () {
+	_process_handlers
 	_setup
 	_chroot
 }
 
 _check_efi () {
-	_process_handlers
 	if [ ! -d "/sys/firmware/efi" ]; then
                 echo -e "${fail}: EFI partitions are only can do that."
 		exit 1

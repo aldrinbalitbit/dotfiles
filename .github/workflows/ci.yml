@@ -1,0 +1,13 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checklut repository
+        uses: actions/checkout@v3
+      - name: Build
+        run: ./build.sh
+        working-directory: ci
