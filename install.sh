@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 red='\x1B[0;31m'
 green='\x1B[0;32m'
 blue='\x1B[0;34m'

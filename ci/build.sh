@@ -1,6 +1,10 @@
-#!/bin/sh -e
-green='\x1B[0;32m'                                                                      blue='\x1B[0;34m'
-white='\x1B[0;37m'                                                                      reset='\x1B[0;m'                                                                        bold='\x1B[1;m'                                                                         success=`printf " ${blue}${bold}[${green}${bold}*${blue}${bold}]${reset}"`
+#!/bin/bash -e
+green='\x1B[0;32m'
+blue='\x1B[0;34m'
+white='\x1B[0;37m'
+reset='\x1B[0;m'
+bold='\x1B[1;m'
+success=`printf " ${blue}${bold}[${green}${bold}*${blue}${bold}]${reset}"`
 info=`printf " ${blue}${bold}[${white}${bold}i${blue}${bold}]${reset}"`
 
 _process_handlers () {

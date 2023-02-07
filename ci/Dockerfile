@@ -1,6 +1,6 @@
 FROM scratch
 
-ADD apertis.tar.gz
+ADD apertis.tar.gz /
 
 RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
