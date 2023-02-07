@@ -32,6 +32,8 @@ _docker_build () {
 }
 
 _remove_container () {
+	echo "${info}: Removing chroot folder..."
+	rm -r chroot
 	printf "${info}: Removing container..."
 	rm apertis.tar.gz
 }
