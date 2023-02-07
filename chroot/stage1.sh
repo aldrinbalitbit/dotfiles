@@ -18,18 +18,18 @@ echo "Compiling ncurses..."
 wget -qO- https://github.com/ThomasDickey/ncurses-snapshots/archive/refs/heads/master.tar.gz | tar -zxf- -C /sources/
 mv /sources/ncurses-snapshots-master /sources/ncurses && cd /sources/ncurses
 _ncurses_version=6.4
-_ncurses_opts=(--prefix="/usr"
-               --mandir="/usr/share/man"
-	       --enable-pc-files
-	       --enable-widec
-	       --with-cxx-shared
-	       --with-pkg-config-libdir="/usr/lib/x86_64-linux-gnu/pkgconfig"
-	       --with-shared
-	       --with-versioned-syms
-	       --with-xterm-kbs=del
-	       --without-ada
-	       --without-debug)
-./configure ${_ncurses_opts[@]}
+./configure --prefix=/usr \
+	    --libdir=/usr/lib/x86_64-linux-gnu \
+	    --mandir=/usr/share/man \
+	    --enable-pc-files \
+	    --enable-widec \
+	    --with-cxx-shared \
+	    --with-pkg-config-libdir=/usr/lib/x86_64-linux-gnu/pkgconfig \
+	    --with-shared \
+	    --with-versioned-syms \
+	    --with-xterm-kbs=del \
+	    --with-ada \
+	    --without-debug
 make
 make install
 install -Dm644 COPYING -t /usr/share/licenses/ncurses
