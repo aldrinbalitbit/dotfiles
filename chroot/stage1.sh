@@ -4,13 +4,13 @@ ls /usr/lib/x86_64-linux-gnu
 
 echo "Updating apertis repositories..."
 echo "deb https://repositories.apertis.org/apertis/ v2024dev1 development sdk target" > /etc/apt/sources.list
-apt-get -qqy update &> /dev/null
+apt-get -qqy update
 echo "Uninstalling systemd..."
-apt-get -qqy remove --purge --autoremove --allow-remove-essential systemd systemd-sysv &> /dev/null
+apt-get -qqy remove --purge --autoremove --allow-remove-essential systemd systemd-sysv
 echo "Upgrading Apertis..."
 apt-get -qqy upgrade
 echo "Installing build dependencies..."
-apt-get -qqy install gcc make g++ ca-certificates wget &> /dev/null
+apt-get -qqy install gcc make g++ ca-certificates wget
 
 # Compile tzdata dependencies
 # Compile ncurses
