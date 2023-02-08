@@ -39,7 +39,8 @@ printf 'INPUT(-lncursesw)\n' > "/usr/lib/x86_64-linux-gnu/libcursesw.so"
 # ln -sv libncurses.so "/usr/lib/x86_64-linux-gnu/libcurses.so"
 for lib in tic tinfo; do
 	printf "INPUT(libncursesw.so.6)\n" > "/usr/lib/x86_64-linux-gnu/lib${lib}.so"
-	ln -sv ncursesw.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
+	# ln -sv libncursesw.so.6 "/usr/lib/lib${lib}.so.6"
+	# ln -sv ncursesw.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
 done
 # Compile readline
 echo "Compiling readline..."
