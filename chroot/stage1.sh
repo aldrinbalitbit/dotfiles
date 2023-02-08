@@ -46,7 +46,7 @@ done
 echo "Compiling readline..."
 wget -qO- https://git.sv.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz | tar -zxf- -C /sources/
 mv /sources/readline-master /sources/readline && cd /sources/readline
-wget -qO- https://ftp.gnu.org/gnu/readline/readline-8.2-patches/readline82-001 | patch -p0 -i-
+wget -qO- https://ftp.gnu.org/gnu/readline/readline-8.2-patches/readline82-001 | patch -p1 -i- | yes
 ./configure --prefix=/usr \
 	    --libdir=/usr/lib/x86_64-linux-gnu \
 	    CFLAGS="$CFLAGS -fPIC"
