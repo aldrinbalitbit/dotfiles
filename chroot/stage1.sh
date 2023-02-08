@@ -36,7 +36,7 @@ for lib in ncurses ncurses++ form panel menu; do
 	# ln -sv ${lib}w.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
 done
 printf 'INPUT(-lncursesw)\n' > "/usr/lib/x86_64-linux-gnu/libcursesw.so"
-ln -sv libncurses.so "/usr/lib/x86_64-linux-gnu/libcurses.so"
+# ln -sv libncurses.so "/usr/lib/x86_64-linux-gnu/libcurses.so"
 for lib in tic tinfo; do
 	printf "INPUT(libncursesw.so.6)\n" > "/usr/lib/x86_64-linux-gnu/lib${lib}.so"
 	ln -sv ncursesw.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
