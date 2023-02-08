@@ -33,7 +33,7 @@ make --silent install
 install -Dm644 COPYING -t /usr/share/licenses/ncurses
 for lib in ncurses ncurses++ form panel menu; do
 	printf "INPUT(-l%sw)\n" "${lib}" > "/usr/lib/x86_64-linux-gnu/lib${lib}.so"
-	ln -sv ${lib}w.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
+	# ln -sv ${lib}w.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
 done
 printf 'INPUT(-lncursesw)\n' > "/usr/lib/x86_64-linux-gnu/libcursesw.so"
 ln -sv libncurses.so "/usr/lib/x86_64-linux-gnu/libcurses.so"
