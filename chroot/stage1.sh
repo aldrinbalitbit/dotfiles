@@ -10,7 +10,7 @@ apt-get -qqy upgrade
 echo "Uninstalling systemd..."
 apt-get -qqy remove --purge --autoremove --allow-remove-essential systemd*
 echo "Installing build dependencies..."
-apt-get -qqy install gcc make g++ ca-certificates wget bash
+apt-get -qqy install gcc make g++ ca-certificates wget bash libreadline-dev
 
 # tzdata
 # Compile tzdata dependencies
@@ -58,17 +58,12 @@ make --silent install
 echo "Compiling bash..."
 wget -qO- https://git.sv.gnu.org/cgit/bash.git/snapshot/bash-master.tar.gz | tar -zxf- -C /sources/
 mv /sources/bash-master /sources/bash && cd /sources/bash
-_bash_opts=(-DDEFAULT_PATH_VALUE=\'\"/usr/local/sbin:/usr/local/bin:/usr/bin\"\'
-            -DSTANDARD_UTILS_PATH=\'\"/usr/bin\"\'
-            -DSYS_BASHRC=\'\"/etc/bash.bashrc\"\'
-            -DSYS_BASH_LOGOUT=\'\"/etc/bash.bash_logout\"\'
-            -DNON_INTERACTIVE_LOGIN_SHELLS)
 ./configure --prefix=/usr \
 	    --with-curses \
 	    --enable-readline \
 	    --with-installed-readline \
 	    --silent \
-	    CFLAGS="${CFLAGS} ${_bashopts[@]}"
+	    CFLAGS="${CFLAGS} -DDEFAULT_PATH_VALUE=\'\"/usr/local/games:/usr/local/sbin:/usr/local/bin:/usr/games:/usr/sbin:/usr/bin:/bin:/sbin\"\' -DSTANDARD_UTILS_PATH=\'\"/usr/bin\"\' -DSYS_BASHRC=\'\"/etc/bash.bashrc\"\' -DSYS_BASH_LOGOUT=\'\"/etc/bash.bash_logout\"\' -DNON_INTERACTIVE_LOGIN_SHELLS"
 make --silent
 make --silent install
 # Compile tzdata
