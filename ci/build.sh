@@ -23,6 +23,10 @@ _download_container () {
 }
 
 _docker_build () {
+	printf "${info}: Copy chroot directory to CI..."
+	sleep 5
+	cp ../chroot .
+	echo
 	printf "${info}: Running docker build..."
 	sleep 5
 	echo
@@ -30,8 +34,13 @@ _docker_build () {
 }
 
 _remove_container () {
+	printf "${info}: Removing chroot directory..."
+	sleep 5
+	rm -rf chroot
+	echo
 	printf "${info}: Removing container..."
 	rm apertis.tar.gz
+	echo
 }
 
 _process_handlers
