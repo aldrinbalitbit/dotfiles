@@ -7,12 +7,12 @@ echo "deb https://repositories.apertis.org/apertis/ v2024dev1 development sdk ta
 apt-get -qqy update
 echo "Upgrading Apertis..."
 apt-get -qqy upgrade
-apt-get -qqy --allow-remove-essential dist-upgrade
 echo "Uninstalling systemd..."
 apt-get -qqy remove --purge --autoremove --allow-remove-essential init* systemd*
 echo "Installing build dependencies..."
 apt-get -qqy install gcc make g++ ca-certificates wget bash
 
+# tzdata
 # Compile tzdata dependencies
 # Compile ncurses
 echo "Compiling ncurses..."
