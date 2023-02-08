@@ -23,8 +23,6 @@ _download_container () {
 }
 
 _docker_build () {
-	echo "${info}: Copying chroot to CI..."
-	cp -r ../chroot .
 	printf "${info}: Running docker build..."
 	sleep 5
 	echo
@@ -32,8 +30,6 @@ _docker_build () {
 }
 
 _remove_container () {
-	echo "${info}: Removing chroot folder..."
-	rm -r chroot
 	printf "${info}: Removing container..."
 	rm apertis.tar.gz
 }

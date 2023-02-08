@@ -10,7 +10,7 @@ apt-get -qqy remove --purge --autoremove --allow-remove-essential systemd system
 echo "Upgrading Apertis..."
 apt-get -qqy upgrade
 echo "Installing build dependencies..."
-apt-get -qqy install gcc make g++ ca-certificates wget
+apt-get -qqy install gcc make g++ ca-certificates wget bash
 
 # Compile tzdata dependencies
 # Compile ncurses
@@ -33,6 +33,7 @@ _ncurses_version=6.4
 make
 make install
 install -Dm644 COPYING -t /usr/share/licenses/ncurses
+bash <<- EOL
 for lib in ncurses ncurses++ form panel menu; do
 	printf "INPUT(-l%sw)\n" "${lib}" > "/usr/lib/x86_64-linux-gnu/lib${lib}.so"
 	ln -sv ${lib}w.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
@@ -44,6 +45,7 @@ for lib in tic tinfo; do
 	ln -sv libncursesw.so.${_ncurses_version:0:1} "/usr/lib/x86_64-linux-gnu/lib${lib}.so.${_ncurses_version:0:1}"
 	ln -sv ncursesw.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
 done
+EOL
 # Compile readline
 echo "Compiling readline..."
 wget -qO- https://git.sv.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz | tar -zxf- -C /sources/
