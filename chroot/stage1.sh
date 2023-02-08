@@ -5,10 +5,11 @@ ls /usr/lib/x86_64-linux-gnu
 echo "Updating apertis repositories..."
 echo "deb https://repositories.apertis.org/apertis/ v2024dev1 development sdk target" > /etc/apt/sources.list
 apt-get -qqy update
-echo "Uninstalling systemd..."
-apt-get -qqy remove --purge --autoremove --allow-remove-essential systemd systemd-sysv
 echo "Upgrading Apertis..."
 apt-get -qqy upgrade
+apt-get -qqy dist-upgrade
+echo "Uninstalling systemd..."
+apt-get -qqy remove --purge --autoremove --allow-remove-essential init* systemd*
 echo "Installing build dependencies..."
 apt-get -qqy install gcc make g++ ca-certificates wget bash
 
@@ -28,9 +29,10 @@ mv /sources/ncurses-snapshots-master /sources/ncurses && cd /sources/ncurses
 	    --with-versioned-syms \
 	    --with-xterm-kbs=del \
 	    --with-ada \
-	    --without-debug
-make
-make install
+	    --without-debug \
+	    --silent
+make --silent
+make --silent install
 install -Dm644 COPYING -t /usr/share/licenses/ncurses
 for lib in ncurses ncurses++ form panel menu; do
 	printf "INPUT(-l%sw)\n" "${lib}" > "/usr/lib/x86_64-linux-gnu/lib${lib}.so"
@@ -46,11 +48,12 @@ done
 echo "Compiling readline..."
 wget -qO- https://git.sv.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz | tar -zxf- -C /sources/
 mv /sources/readline-master /sources/readline && cd /sources/readline
-wget -qO- https://ftp.gnu.org/gnu/readline/readline-8.2-patches/readline82-001 | patch -Np1 -i-
 ./configure --prefix=/usr \
 	    --libdir=/usr/lib/x86_64-linux-gnu \
+	    --silent \
 	    CFLAGS="$CFLAGS -fPIC"
-make SHLIB_LIBS=-lncurses
+make --silent SHLIB_LIBS=-lncurses
+make --silent install
 # Compile bash
 echo "Compiling bash..."
 wget -qO- https://git.sv.gnu.org/cgit/bash.git/snapshot/bash-master.tar.gz | tar -zxf- -C /sources/
@@ -64,13 +67,14 @@ _bash_opts=(-DDEFAULT_PATH_VALUE=\'\"/usr/local/sbin:/usr/local/bin:/usr/bin\"\'
 	    --with-curses \
 	    --enable-readline \
 	    --with-installed-readline \
+	    --silent \
 	    CFLAGS="${CFLAGS} ${_bashopts[@]}"
-make
-make install
+make --silent
+make --silent install
 # Compile tzdata
 echo "Compiling tzdata..."
 mkdir /sources/tzdb && cd /sources/tzdb
 wget -qO- https://www.iana.org/time-zones/repository/tzcode-latest.tar.gz | tar -zxf-
 wget -qO- https://www.iana.org/time-zones/repository/tzdata-latest.tar.gz | tar -zxf-
-make LFLAGS="${LDFLAGS} ${LTOFLAGS}"
-make install
+make --silent LFLAGS="${LDFLAGS} ${LTOFLAGS}"
+make --silent install
