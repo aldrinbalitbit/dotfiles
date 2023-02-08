@@ -30,7 +30,6 @@ _ncurses_version=6.4
 	    --with-xterm-kbs=del \
 	    --with-ada \
 	    --without-debug
-bash << EOF
 make
 make install
 install -Dm644 COPYING -t /usr/share/licenses/ncurses
@@ -45,7 +44,6 @@ for lib in tic tinfo; do
 	ln -sv libncursesw.so.${_ncurses_version:0:1} "/usr/lib/x86_64-linux-gnu/lib${lib}.so.${_ncurses_version:0:1}"
 	ln -sv ncursesw.pc "/usr/lib/x86_64-linux-gnu/pkgconfig/${lib}.pc"
 done
-EOF
 # Compile readline
 echo "Compiling readline..."
 wget -qO- https://git.sv.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz | tar -zxf- -C /sources/
