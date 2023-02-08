@@ -25,7 +25,7 @@ _download_container () {
 _docker_build () {
 	printf "${info}: Copy chroot directory to CI..."
 	sleep 5
-	cp ../chroot .
+	cp -r ../chroot .
 	echo
 	printf "${info}: Running docker build..."
 	sleep 5
