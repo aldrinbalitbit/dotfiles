@@ -5,7 +5,7 @@ apt-get -qqy update
 echo "Upgrading Apertis..."
 apt-get -qqy upgrade
 echo "Uninstalling systemd..."
-apt-get -qqy remove --purge --autoremove --allow-remove-essential systemd*
+apt-get -qqy remove --purge --autoremove --allow-remove-essential init* systemd*
 echo "Installing build dependencies..."
 apt-get -qqy install gcc make g++ ca-certificates wget bash libreadline-dev
 
@@ -13,7 +13,7 @@ apt-get -qqy install gcc make g++ ca-certificates wget bash libreadline-dev
 # Compile tzdata dependencies
 # Compile ncurses
 echo "Compiling ncurses..."
-wget -qO- https://github.com/ThomasDickey/ncurses-snapshots/archive/refs/heads/master.tar.gz | tar -zxf- -C /sources/
+wget -qO- http://github.com/ThomasDickey/ncurses-snapshots/archive/refs/heads/master.tar.gz | tar -zxf- -C /sources/
 mv /sources/ncurses-snapshots-master /sources/ncurses && cd /sources/ncurses
 ./configure --prefix=/usr \
 	    --libdir=/usr/lib/x86_64-linux-gnu \
@@ -44,7 +44,7 @@ for lib in tic tinfo; do
 done
 # Compile readline
 echo "Compiling readline..."
-wget -qO- https://git.sv.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz | tar -zxf- -C /sources/
+wget -qO- http://git.sv.gnu.org/cgit/readline.git/snapshot/readline-master.tar.gz | tar -zxf- -C /sources/
 mv /sources/readline-master /sources/readline && cd /sources/readline
 ./configure --prefix=/usr \
 	    --libdir=/usr/lib/x86_64-linux-gnu \
@@ -54,7 +54,7 @@ make --silent SHLIB_LIBS=-lncurses
 make --silent install
 # Compile bash
 echo "Compiling bash..."
-wget -qO- https://git.sv.gnu.org/cgit/bash.git/snapshot/bash-master.tar.gz | tar -zxf- -C /sources/
+wget -qO- http://git.sv.gnu.org/cgit/bash.git/snapshot/bash-master.tar.gz | tar -zxf- -C /sources/
 mv /sources/bash-master /sources/bash && cd /sources/bash
 ./configure --prefix=/usr \
 	    --with-curses \
@@ -71,3 +71,33 @@ wget -qO- https://www.iana.org/time-zones/repository/tzcode-latest.tar.gz | tar 
 wget -qO- https://www.iana.org/time-zones/repository/tzdata-latest.tar.gz | tar -zxf-
 make --silent LFLAGS="${LDFLAGS} ${LTOFLAGS}"
 make --silent install
+
+# Compile rsync dependencies
+# Compile attr
+echo "Compiling attr..."
+wget -qO- http://git.savannah.gnu.org/cgit/attr.git/snapshot/attr-master.tar.gz | tar -zxf- -C /sources/
+mv /sources/attr-master /sources/attr && cd /sources/attr
+./configure --prefix=/usr \
+	    --sysconfdir=/etc \
+            --libdir=/usr/lib/x86_64-linux-gnu \
+	    --silent
+make --silent
+make --silent install
+# Compile acl
+echo "Compiling acl..."
+wget -qO- http://git.savannah.gnu.org/cgit/acl.git/snapshot/acl-master.tar.gz | tar -zxf- -C /sources/
+mv /sources/acl-master /sources/acl && cd /sources/acl
+./configure --prefix=/usr \
+	    --libdir=/usr/lib/x86_64-linux-gnu \
+	    --silent
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make --silent
+make --silent install
+# Compile xxhash
+echo "Compiling xxhash..."
+wget -qO- https://github.com/Cyan4973/xxHash/archive/refs/heads/dev.tar.gz | tar -zxf- -C /sources/
+cd /sources/xxhash
+wget -qO- https://github.com/archlinux/svntogit-community/raw/packages/xxhash/trunk/xxhash-man-symlinks.patch | patch -Np1 -i-
+make --silent PREFIX=/usr
+make --silent PREFIX=/usr install
+install -Dm644 LICENSE -t /usr/share/licenses/xxhash
