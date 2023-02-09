@@ -5,7 +5,7 @@ apt-get -qqy update
 echo "Upgrading Apertis..."
 apt-get -qqy upgrade
 echo "Uninstalling systemd..."
-apt-get -qqy remove --purge --autoremove --allow-remove-essential init* systemd*
+apt-get -qqy remove --purge --autoremove --allow-remove-essential systemd*
 echo "Installing build dependencies..."
 apt-get -qqy install gcc make g++ ca-certificates wget bash libreadline-dev
 
