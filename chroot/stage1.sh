@@ -97,7 +97,6 @@ make --silent install
 echo "Compiling xxhash..."
 wget -qO- https://github.com/Cyan4973/xxHash/archive/refs/heads/dev.tar.gz | tar -zxf- -C /sources/
 mv /sources/xxHash-dev /sources/xxHash && cd /sources/xxHash
-wget -qO- https://github.com/archlinux/svntogit-community/raw/packages/xxhash/trunk/xxhash-man-symlinks.patch | patch -Np1 -i-
 make --silent PREFIX=/usr
 make --silent PREFIX=/usr install
 install -Dm644 LICENSE -t /usr/share/licenses/xxhash
