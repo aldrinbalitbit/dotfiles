@@ -75,7 +75,7 @@ make --silent install
 # Compile rsync dependencies
 # Compile attr
 echo "Compiling attr..."
-wget -qO- http://git.savannah.gnu.org/cgit/attr.git/snapshot/attr-master.tar.gz | tar -zxf- -C /sources/
+wget -qO- http://dl.sv.gnu.org/releases/attr/attr-2.5.1.tar.xz | tar -Jxf- -C /sources/
 mv /sources/attr-master /sources/attr && cd /sources/attr
 ./configure --prefix=/usr \
 	    --sysconfdir=/etc \
@@ -85,7 +85,7 @@ make --silent
 make --silent install
 # Compile acl
 echo "Compiling acl..."
-wget -qO- http://git.savannah.gnu.org/cgit/acl.git/snapshot/acl-master.tar.gz | tar -zxf- -C /sources/
+wget -qO- http://download.savannah.gnu.org/releases/acl/acl-2.3.1.tar.xz | tar -Jxf- -C /sources/
 mv /sources/acl-master /sources/acl && cd /sources/acl
 ./configure --prefix=/usr \
 	    --libdir=/usr/lib/x86_64-linux-gnu \
