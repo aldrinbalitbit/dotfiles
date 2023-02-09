@@ -76,7 +76,7 @@ make --silent install
 # Compile attr
 echo "Compiling attr..."
 wget -qO- http://dl.sv.gnu.org/releases/attr/attr-2.5.1.tar.xz | tar -Jxf- -C /sources/
-mv /sources/attr-master /sources/attr && cd /sources/attr
+mv /sources/attr-2.5.1 /sources/attr && cd /sources/attr
 ./configure --prefix=/usr \
 	    --sysconfdir=/etc \
             --libdir=/usr/lib/x86_64-linux-gnu \
@@ -86,7 +86,7 @@ make --silent install
 # Compile acl
 echo "Compiling acl..."
 wget -qO- http://download.savannah.gnu.org/releases/acl/acl-2.3.1.tar.xz | tar -Jxf- -C /sources/
-mv /sources/acl-master /sources/acl && cd /sources/acl
+mv /sources/acl-2.3.1 /sources/acl && cd /sources/acl
 ./configure --prefix=/usr \
 	    --libdir=/usr/lib/x86_64-linux-gnu \
 	    --silent
